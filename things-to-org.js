@@ -4,6 +4,8 @@
   app = Application.currentApplication()
   app.includeStandardAdditions = true;
 
+  var Someday = Things.lists.byId("TMSomedayListSource").toDos().map(t => t.id());
+
   let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   let _cleanTag = function(tag) {
@@ -19,6 +21,12 @@
     let tags = obj.tagNames()
                 .split(',')
                 .map(_cleanTag)
+
+    if (Someday.includes(obj.id())) {
+      console.log(obj.name())
+      tags.push("Someday")
+    }
+
     return `:${tags.join(":")}:`;
   }
 
