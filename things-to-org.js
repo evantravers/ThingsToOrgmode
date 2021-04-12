@@ -15,7 +15,17 @@
               .replace(/_$/g, '')
   }
 
-  let Tags = function(obj) {
+  var TagGroups = (function() {
+    let tags = [];
+    Things.tags().forEach(function(t) {
+      if (t.tags().length > 0) {
+        tags.push([_cleanTag(t.name()), t.tags().map(t => _cleanTag(t.name()))])
+      }
+    });
+    return tags;
+  })();
+
+  let Tag = function(obj) {
     let hasTags = obj.tagNames() !== "";
     if (!hasTags) { return '' }
     let tags = obj.tagNames()
@@ -23,7 +33,6 @@
                 .map(_cleanTag)
 
     if (Someday.includes(obj.id())) {
-      console.log(obj.name())
       tags.push("Someday")
     }
 
@@ -49,7 +58,7 @@
   let Scheduled = function(obj) { return _getDate(obj, 'SCHEDULED', 'activationDate') }
 
   let Attributes = function(obj, opts = {indent: 0}) {
-    let heading = `${obj.name()} ${Tags(obj)}`;
+    let heading = `${obj.name()} ${Tag(obj)}`;
     let body = ["\n", Scheduled(obj), Due(obj), obj.notes()]
                .filter(o => o != null)
                .map(s => s.split("\n").map(l => l.padStart(l.length + opts.indent, " ")).join("\n").trimEnd())
@@ -113,7 +122,14 @@
   Things.launch();
 
   // Export Inbox
-  let inbox = "* Inbox\n";
+  let inbox = "* Inbox\n\n";
+
+  TagGroups.forEach(function([group, members]) {
+    inbox += `#+TAGS: [ ${group} : ${members.join(' ')} ]\n`;
+  });
+
+  inbox += "\n"
+
   for (todo of Things.lists.byId("TMInboxListSource").toDos()) {
     inbox += Todo(todo)
   }
@@ -121,7 +137,7 @@
 
   // Export Areas
   for (area of Things.areas()) {
-    let orgfile = `* ${area.name()} ${Tags(area)}\n`;
+    let orgfile = `* ${area.name()} ${Tag(area)}\n`;
 
     // Gather Projects
     let projects = [];
