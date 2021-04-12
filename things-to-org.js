@@ -8,11 +8,11 @@
 
   let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-  let _cleanTag = function(tag) {
-    return tag.replaceAll(/[^a-zA-Z0-9_@]/g, '_')
-              .replaceAll(/__/g, '_')
-              .replace(/^_/g, '')
-              .replace(/_$/g, '')
+  let _cleanTag = function(tagString) {
+    return tagString.replaceAll(/[^a-zA-Z0-9_@]/g, '_')
+                    .replaceAll(/__/g, '_')
+                    .replace(/^_/g, '')
+                    .replace(/_$/g, '')
   }
 
   var TagGroups = (function() {
