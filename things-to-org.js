@@ -69,22 +69,23 @@
     delay(.1)
 
     let str = app.theClipboard()
+      .replaceAll(/\r/g, "\n")
+      .split(/\n/)
+      .filter(function(line) {
+        if (line.match(/^- /m)) {
+          return true;
+        }
+        return false;
+      })
+      .map(l => l.replace(/^- /, '    - [ ] '))
+      .join("\n");
 
-    if (str != "[NONE]") {
-      return "\n\n" + str
-        .replaceAll(/\r/g, "\n")
-        .split(/\n/)
-        .filter(function(line) {
-          if (line.match(/^- /m)) {
-            return true;
-          }
-          return false;
-        })
-        .map(l => l.replace(/^- /, '    - [ ] '))
-        .join("\n");
+    if (str.length > 1) {
+      return "\n\n" + str;
     }
-
-    return '';
+    else {
+      return '';
+    }
   }
 
   let Todo = function(todo) {
