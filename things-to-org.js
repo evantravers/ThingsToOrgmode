@@ -9,10 +9,13 @@
   let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   let _cleanTag = function(tagString) {
-    return tagString.replaceAll(/[^a-zA-Z0-9_@]/g, '_')
-                    .replaceAll(/__/g, '_')
-                    .replace(/^_/g, '')
-                    .replace(/_$/g, '')
+    return tagString
+      .replace(":<1h", "30m") // manipulate tags
+      .replace("Rituals: ", "")
+      .replaceAll(/[^a-zA-Z0-9_@]/g, '_')
+      .replaceAll(/__/g, '_')
+      .replace(/^_/g, '')
+      .replace(/_$/g, '')
   }
 
   var TagGroups = (function() {
