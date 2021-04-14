@@ -97,7 +97,7 @@
         }
         return false;
       })
-      .map(l => l.replace(/^- /, '    - [ ] '))
+      .map(l => l.replace(/^- /, '- [ ] '))
       .join("\n");
 
     if (str.length > 1) {
@@ -111,11 +111,11 @@
   let Todo = function(todo) {
     let checklist = scrapeChecklist(todo);
 
-    return `*** TODO ${Attributes(todo, {indent: 4})}${checklist}\n`;
+    return `*** TODO ${Attributes(todo, {indent: 0})}${checklist}\n`;
   }
 
   let Proj = function(project) {
-    let temp = `** ${Attributes(project, {indent: 3})}\n`;
+    let temp = `** ${Attributes(project, {indent: 0})}\n`;
     for (todo of project.toDos()) {
       temp += Todo(todo);
     }
