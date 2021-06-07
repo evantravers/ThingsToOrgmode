@@ -136,7 +136,7 @@
   for (todo of Things.lists.byId("TMInboxListSource").toDos()) {
     inbox += Todo(todo)
   }
-  app.doShellScript(`echo "${inbox}" > "\${HOME}/Dropbox/org/Inbox.org"`);
+  app.doShellScript(`echo "${inbox}" > "\${HOME}/Library/Mobile Documents/com~apple~CloudDocs/org/Inbox.org"`);
 
   // Export Areas
   for (area of Things.areas()) {
@@ -159,6 +159,6 @@
       orgfile += Proj(proj);
     }
 
-    app.doShellScript(`echo "${orgfile}" > "\${HOME}/Dropbox/org/${area.name()}.org"`);
+    app.doShellScript(`echo "${orgfile}" > "\${HOME}/Library/Mobile Documents/com~apple~CloudDocs/org/${area.name()}.org"`);
   }
 })();
