@@ -84,9 +84,9 @@
     Things.activate()
     Things.show(todo)
 
-    delay(.1)
+    delay(.2)
     se.keystroke('c', { using: [ 'command down' ] }) // boy this is nasty
-    delay(.1)
+    delay(.2)
 
     let str = app.theClipboard()
       .replaceAll(/\r/g, "\n")
